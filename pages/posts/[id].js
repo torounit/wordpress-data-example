@@ -1,19 +1,29 @@
 import Head from 'next/head'
-import Posts from '../../components/Posts';
-import Post from '../../components/Post';
+import Article from '../../components/Posts/Article';
 import { useRouter } from 'next/router';
+import { useSelect } from '@wordpress/data';
 export default function PostPage() {
 
   const router = useRouter()
-  const { id } = router.query
+  const { id } = router.query;
+
+  const post = useSelect( ( select ) => {
+    const { getPost } = select( 'my-store/posts' );
+    if ( id ) {
+      return getPost( id );
+    }
+
+    return null;
+
+  }, [ id ] );
 
   return (
     <div>
       <Head>
-        <title>WP Next Sample</title>
+        <title>{post?.title.rendered} Post Example</title>
       </Head>
 
-      <Post id={id} />
+      <Article id={id} />
     </div>
   )
 }

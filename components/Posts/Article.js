@@ -1,6 +1,6 @@
 import { useSelect } from '@wordpress/data';
 
-function Post( { id } ) {
+function Article( { id } ) {
 
   const post = useSelect( ( select ) => {
     const { getPost } = select( 'my-store/posts' );
@@ -24,4 +24,4 @@ function Post( { id } ) {
   );
 }
 
-export default Post;
+export default Article;
